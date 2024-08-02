@@ -32,10 +32,10 @@ async function main() {
  * @param {string} version
  * @returns {Promise<object>}
  */
-async function dryRunPack(name = null, version = null) {
+async function dryRunPack(name = '', version = '') {
 
 	// https://docs.npmjs.com/cli-commands/pack.html
-	const package = name
+	const package = name.length > 0
 		? `${name}@${version || 'latest'}`
 		: '';
 	const { stderr, stdout } = await execAsync(`npm pack ${package} --dry-run --json`);

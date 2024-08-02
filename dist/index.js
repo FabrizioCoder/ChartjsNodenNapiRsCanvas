@@ -21,7 +21,7 @@ class ChartJSNodeCanvas {
         }
         this._width = options.width;
         this._height = options.height;
-        const canvas = (0, freshRequire_1.freshRequire)('canvas');
+        const canvas = (0, freshRequire_1.freshRequire)('@napi-rs/canvas');
         this._createCanvas = canvas.createCanvas;
         this._registerFont = canvas.registerFont;
         this._image = canvas.Image;
@@ -137,12 +137,12 @@ class ChartJSNodeCanvas {
      * Use to register the font with Canvas to use a font file that is not installed as a system font, this must be done before the Canvas is created.
      *
      * @param path The path to the font file.
-     * @param options The font options.
+     * @param nameAlias The name to use when registering the font, this is optional and will default to the font name in the font file.
      * @example
      * registerFont('comicsans.ttf', { family: 'Comic Sans' });
      */
-    registerFont(path, options) {
-        this._registerFont(path, options);
+    registerFont(path, nameAlias) {
+        this._registerFont(path, nameAlias);
     }
     initialize(options) {
         var _a, _b, _c, _d;

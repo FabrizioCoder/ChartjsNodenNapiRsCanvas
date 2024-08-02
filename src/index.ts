@@ -1,6 +1,6 @@
 import { Readable } from 'stream';
 import { Chart as ChartJS, ChartConfiguration, ChartComponentLike } from 'chart.js';
-import { createCanvas, registerFont, Image } from 'canvas';
+import { createCanvas, GlobalFonts, Image } from '@napi-rs/canvas';
 import { freshRequire } from './freshRequire';
 import { BackgroundColourPlugin } from './backgroundColourPlugin';
 
@@ -69,7 +69,7 @@ export class ChartJSNodeCanvas {
 	private readonly _height: number;
 	private readonly _chartJs: typeof ChartJS;
 	private readonly _createCanvas: typeof createCanvas;
-	private readonly _registerFont: typeof registerFont;
+	private readonly _registerFont: typeof GlobalFonts.registerFromPath;
 	private readonly _image: typeof Image;
 	private readonly _type?: CanvasType;
 
@@ -92,7 +92,7 @@ export class ChartJSNodeCanvas {
 
 		this._width = options.width;
 		this._height = options.height;
-		const canvas = freshRequire('canvas');
+		const canvas = freshRequire('@napi-rs/canvas');
 		this._createCanvas = canvas.createCanvas;
 		this._registerFont = canvas.registerFont;
 		this._image = canvas.Image;
@@ -219,13 +219,13 @@ export class ChartJSNodeCanvas {
 	 * Use to register the font with Canvas to use a font file that is not installed as a system font, this must be done before the Canvas is created.
 	 *
 	 * @param path The path to the font file.
-	 * @param options The font options.
+	 * @param nameAlias The name to use when registering the font, this is optional and will default to the font name in the font file.
 	 * @example
 	 * registerFont('comicsans.ttf', { family: 'Comic Sans' });
 	 */
-	public registerFont(path: string, options: { readonly family: string, readonly weight?: string, readonly style?: string }): void {
+	public registerFont(path: string, nameAlias?: string): void {
 
-		this._registerFont(path, options);
+		this._registerFont(path, nameAlias);
 	}
 
 	private initialize(options: ChartJSNodeCanvasOptions): typeof ChartJS {

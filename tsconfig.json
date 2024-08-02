@@ -43,7 +43,7 @@
     "pretty": true
   },
   "include": [
-    "./src/**/*"
+    "src"
   ],
   "buildOptions": {
     "verbose": true

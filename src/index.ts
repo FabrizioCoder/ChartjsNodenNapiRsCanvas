@@ -92,7 +92,7 @@ export class ChartJSNodeCanvas {
 
 		this._width = options.width;
 		this._height = options.height;
-		const canvas = freshRequire('@napi-rs/canvas');
+		const canvas = require('@napi-rs/canvas');
 		this._createCanvas = canvas.createCanvas;
 		this._registerFont = canvas.registerFont;
 		this._image = canvas.Image;
@@ -286,7 +286,6 @@ export class ChartJSNodeCanvas {
 		configuration.options.animation = false as any;
 		const context = canvas.getContext('2d');
 		(global as any).Image = this._image; // Some plugins use this API
-		// TODO: Fix this type assertion
 		const chart = new this._chartJs(context as unknown as ChartItem, configuration);
 		delete (global as any).Image;
 		return chart;

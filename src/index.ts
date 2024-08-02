@@ -1,6 +1,6 @@
 import { Readable } from 'stream';
-import { Chart as ChartJS, ChartConfiguration, ChartComponentLike } from 'chart.js';
-import { createCanvas, GlobalFonts, Image } from '@napi-rs/canvas';
+import { Chart as ChartJS, ChartConfiguration, ChartComponentLike, ChartItem } from 'chart.js';
+import { createCanvas, GlobalFonts, Image, SvgExportFlag } from '@napi-rs/canvas';
 import { freshRequire } from './freshRequire';
 import { BackgroundColourPlugin } from './backgroundColourPlugin';
 
@@ -278,7 +278,7 @@ export class ChartJSNodeCanvas {
 
 	private renderChart(configuration: ChartConfiguration): ChartJS {
 
-		const canvas = this._createCanvas(this._width, this._height, this._type);
+		const canvas = this._createCanvas(this._width, this._height, this._type as unknown as SvgExportFlag);
 		(canvas as any).style = (canvas as any).style || {};
 		// Disable animation (otherwise charts will throw exceptions)
 		configuration.options = configuration.options || {};
@@ -286,7 +286,7 @@ export class ChartJSNodeCanvas {
 		configuration.options.animation = false as any;
 		const context = canvas.getContext('2d');
 		(global as any).Image = this._image; // Some plugins use this API
-		const chart = new this._chartJs(context, configuration);
+		const chart = new this._chartJs(context as unknown as ChartItem, configuration);
 		delete (global as any).Image;
 		return chart;
 	}

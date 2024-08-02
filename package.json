@@ -1,11 +1,11 @@
 {
-  "name": "chartjs-node-canvas",
+  "name": "chartjs-node-napirs-canvas",
   "version": "4.1.6",
-  "description": "A node renderer for Chart.js using canvas.",
+  "description": "A node renderer for Chart.js using @napi-rs/canvas",
   "main": "./dist/index",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "prepare": "npm i ; npm run build",
+    "prepare": "npm i -f; npm run build",
     "nvm": "cat .nvmrc | nvm use",
     "build": "tsc",
     "clean": "clean-dest -s ./src -d ./dist --file-map ./scripts/clean-dest --permanent --verbose && echo TODO: Delete .tsbuildinfo?",

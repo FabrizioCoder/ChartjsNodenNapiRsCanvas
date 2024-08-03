@@ -92,7 +92,7 @@ export class ChartJSNodeCanvas {
 
 		this._width = options.width;
 		this._height = options.height;
-		const canvas = require('@napi-rs/canvas');
+		const canvas = freshRequire('@napi-rs/canvas');
 		this._createCanvas = canvas.createCanvas;
 		this._registerFont = canvas.registerFont;
 		this._image = canvas.Image;
@@ -230,11 +230,11 @@ export class ChartJSNodeCanvas {
 
 	private initialize(options: ChartJSNodeCanvasOptions): typeof ChartJS {
 
-		const chartJs: typeof ChartJS = require('chart.js');
+		const chartJs: typeof ChartJS = freshRequire('chart.js');
 
 		if (options.plugins?.requireChartJSLegacy) {
 			for (const plugin of options.plugins.requireChartJSLegacy) {
-				require(plugin);
+				freshRequire(plugin);
 				delete require.cache[require.resolve(plugin)];
 			}
 		}
